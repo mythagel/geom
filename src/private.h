@@ -34,6 +34,9 @@ struct polyhedron_t::private_t
 {
 	private_t();
 	private_t(const Nef_polyhedron_3& nef);
+#if CGAL_VERSION_MAJOR == 5 and CGAL_VERSION_MINOR >= 6
+	private_t(const Polyhedron_3& p);
+#endif
 	
 	void regularise();
 	

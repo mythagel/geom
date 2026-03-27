@@ -43,6 +43,13 @@ polyhedron_t::private_t::private_t(const Nef_polyhedron_3& nef)
 {
 	regularise();
 }
+#if CGAL_VERSION_MAJOR == 5 and CGAL_VERSION_MINOR >= 6
+polyhedron_t::private_t::private_t(const Polyhedron_3& p)
+ : nef(p)
+{
+	regularise();
+}
+#endif
 
 void polyhedron_t::private_t::regularise()
 {
@@ -239,7 +246,7 @@ std::istream& operator>>(std::istream& is, polyhedron_t& poly)
 		{
 			Polyhedron_3 P;
 			is >> P;
-			poly.priv->nef = { P };
+			poly.priv->nef = Nef_polyhedron_3(P);
 			break;
 		}
 		case format::NEF:
